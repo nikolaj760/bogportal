@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Læseliste</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <nav>
+        <div class="nav-left">
+            <a href="index.html"><h1><strong><i>Min Bibliotekside</i></strong></h1></a>
+        </div>
+
+        <div class="nav-center">
+            <input type="text" placeholder="Søg efter bøger...">
+            <button>Søg</button>
+        </div>
+
+        <div class="nav-right">
+            <a href="reading-list.html"><button>Læseliste</button></a>
+            <a href="my-books.html"><button>Mine bøger</button></a>
+        </div>
+    </nav>
+</header>
+
+<div class="my-books">
+    <h2>Mine bøger</h2>
+    <div id="my-books-kat" class="row"></div>
+</div>
+
+<div id="book-detail" class="hidden">
+    <div class="detail-content">
+        <span id="close-detail" class="close">&times;</span>
+        <img id="detail-cover" src="" alt="Cover">
+        <h2 id="detail-title"></h2>
+        <p id="detail-author"></p>
+        <p id="detail-year"></p>
+        <p id="detail-subjects"></p>
+        <p id="detail-description"></p>
+        <button id="add-reading-list">Tilføj til læseliste</button>
+        <button id="mark-as-read">Markér som læst</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
