@@ -1,6 +1,7 @@
 body{
     font-family: Lato, sans-serif;
     margin: 0;
+    background-color: #080D17;
 }
 
 nav {
@@ -8,7 +9,6 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    background-color: lightgray;
     width: 100%;
     margin-bottom: 50px;
 }
@@ -30,7 +30,7 @@ nav {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-right: 50px;
+    margin-right: 70px;
 }
 
 .nav-center input[type="text"] {
@@ -40,46 +40,70 @@ nav {
 
 nav a{
     text-decoration: none;
-    color: black;
+    color: white;
     font-size: 25px;
 }
 
 nav input{
     width: 300px;
     height: 30px;
-    background-color: darkgray;
+    background-color: #111721;
     border: none;
     border-radius: 5px;
+}
+
+::placeholder {
+    text-align: center;
+    color: grey;
+    font-weight: lighter;
 }
 
 *:focus {
     outline: none;
+    color: white;
 }
 
-.nav-center button{
-    height: 40px;
-    width: 60px;
-    background-color: darkgray;
-    border: none;
-    border-radius: 5px;
-    color: lightgray;
+#search-input:focus::placeholder {
+    color: transparent;
+    transition: color 0.1s ease;
 }
+
 
 .nav-right button, .nav-left button{
     height: 40px;
     width: 100px;
-    background-color: darkgray;
+    background-color: #080D17;
     border: none;
     border-radius: 5px;
-    color: lightgray;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover{
+
+    color: lightgrey;
+}
+
+.nav-right button.active-tab {
+    background-color: white;
+    color: #080D17;
 }
 
 .reading-list h2, .my-books h2{
     margin-left: 30px;
+    color: white;
+}
+
+.reading-list p, .my-books p {
+    color: white;
+
 }
 
 section h2{
     margin-left: 30px;
+    font-size: 1.8rem;
+    color: white;
 }
 .row {
     display: flex;
@@ -102,21 +126,12 @@ section h2{
 
 .book img {
     width: 100%;
-    height: 220px;
+    height: 250px;
     object-fit: cover;
     border-radius: 7px;
     margin-bottom: 8px;
 }
 
-.book h3 {
-    font-size: 1rem;
-    margin: 5px 0 2px 0;
-}
-
-.book p {
-    font-size: 0.85rem;
-    margin: 0;
-}
 
 
 .book:hover {

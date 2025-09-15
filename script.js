@@ -85,8 +85,6 @@ function loadKategori(query, sectionId) {
 
                 div.innerHTML = `
                     <img src="${coverUrl}" alt="${title}">
-                    <h3>${title}</h3>
-                    <p>${author}</p>
                 `;
 
                 // Klik på bogkort åbner detaljemodal
