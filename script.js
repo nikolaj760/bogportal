@@ -13,7 +13,11 @@ searchInput.addEventListener("input", () => {
 function performSearch(query) {
     // Ryd eksisterende sektioner på index
     const sections = document.querySelectorAll("section");
-    sections.forEach(section => section.innerHTML = "");
+    sections.forEach(section => {
+        if (!["reading-list-kat", "my-books-kat"].includes(section.id)) {
+            section.innerHTML = "";
+        }
+    });
 
     // Lav ny section til søgning
     const searchSection = document.createElement("section");
