@@ -2,6 +2,61 @@
 let readingList = JSON.parse(localStorage.getItem("readingList")) || [];
 let readBooks = JSON.parse(localStorage.getItem("readBooks")) || [];
 
+const searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim();
+    if (query.length < 3) return;
+    performSearch(query);
+});
+
+function performSearch(query) {
+    // Ryd eksisterende sektioner på index
+    const sections = document.querySelectorAll("section");
+    sections.forEach(section => section.innerHTML = "");
+
+    // Lav ny section til søgning
+    const searchSection = document.createElement("section");
+    searchSection.id = "search-results";
+
+    const h2 = document.createElement("h2");
+    h2.textContent = `Søgeresultater for "${query}"`;
+    searchSection.appendChild(h2);
+
+    const rowDiv = document.createElement("div");
+    rowDiv.className = "row"; // Brug samme styling som dine eksisterende book-rows
+
+    // Hent bøger via OpenLibrary API
+    fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+            data.docs.slice(0, 20).forEach(book => {
+                const div = document.createElement("div");
+                div.classList.add("book");
+
+                const title = book.title || "Ukendt titel";
+                const author = book.author_name ? book.author_name[0] : "Ukendt forfatter";
+                let coverUrl = "https://via.placeholder.com/150x220?text=No+Cover";
+                if (book.cover_i) {
+                    coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+                }
+
+                div.innerHTML = `
+                    <img src="${coverUrl}" alt="${title}">
+                    <h3>${title}</h3>
+                    <p>${author}</p>
+                `;
+
+                div.addEventListener("click", () => openBookDetail(book));
+                rowDiv.appendChild(div);
+            });
+        })
+        .catch(err => console.error("Fejl ved hentning:", err));
+
+    searchSection.appendChild(rowDiv);
+    document.body.appendChild(searchSection);
+}
+
 // Funktion til at hente bøger til en kategori
 function loadKategori(query, sectionId) {
     const section = document.querySelector(`#${sectionId} .row`);
@@ -12,7 +67,7 @@ function loadKategori(query, sectionId) {
         .then(data => {
             section.innerHTML = "";
 
-            data.docs.slice(0, 10).forEach(book => {
+            data.docs.slice(0, 20).forEach(book => {
                 const div = document.createElement("div");
                 div.classList.add("book");
 
@@ -241,6 +296,8 @@ function renderReadBooks() {
         container.appendChild(div);
     });
 }
+
+
 
 // Kør kun renderReadBooks hvis vi er på my-books siden
 if (document.getElementById("my-books-kat")) {
