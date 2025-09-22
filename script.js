@@ -24,7 +24,7 @@ function performSearch(query) {
     searchSection.id = "search-results";
 
     const h2 = document.createElement("h2");
-    h2.textContent = `Søgeresultater for "${query}"`;
+    h2.textContent = `Search results for "${query}"`;
     searchSection.appendChild(h2);
 
     const rowDiv = document.createElement("div");
@@ -38,8 +38,8 @@ function performSearch(query) {
                 const div = document.createElement("div");
                 div.classList.add("book");
 
-                const title = book.title || "Ukendt titel";
-                const author = book.author_name ? book.author_name[0] : "Ukendt forfatter";
+                const title = book.title || "Unknown title";
+                const author = book.author_name ? book.author_name[0] : "Unknown author";
                 let coverUrl = "https://via.placeholder.com/150x220?text=No+Cover";
                 if (book.cover_i) {
                     coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
@@ -75,8 +75,8 @@ function loadKategori(query, sectionId) {
                 const div = document.createElement("div");
                 div.classList.add("book");
 
-                const title = book.title || "Ukendt titel";
-                const author = book.author_name ? book.author_name[0] : "Ukendt forfatter";
+                const title = book.title || "Unknown title";
+                const author = book.author_name ? book.author_name[0] : "Unknown author";
 
                 let coverUrl = "https://via.placeholder.com/150x220?text=No+Cover";
                 if (book.cover_i) {
@@ -109,9 +109,9 @@ function openBookDetail(book) {
     const coverEl = document.getElementById("detail-cover");
 
     // Basis info
-    titleEl.textContent = book.title || "Ukendt titel";
-    authorEl.textContent = "Forfatter: " + (book.author_name ? book.author_name.join(", ") : "Ukendt");
-    yearEl.textContent = "Første udgivelse: " + (book.first_publish_year || "Ukendt");
+    titleEl.textContent = book.title || "Unknown title";
+    authorEl.textContent = "Author: " + (book.author_name ? book.author_name.join(", ") : "Unknown");
+    yearEl.textContent = "First published: " + (book.first_publish_year || "Unknown");
 
     if (book.cover_i) {
         coverEl.src = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
@@ -130,10 +130,10 @@ function openBookDetail(book) {
             descriptionEl.textContent = desc;
 
             if (detail.subjects) {
-                subjectsEl.textContent = "Emner: " + detail.subjects.slice(0, 3).join(", ");
+                subjectsEl.textContent = "Subjects: " + detail.subjects.slice(0, 3).join(", ");
             }
         })
-        .catch(err => console.error("Fejl ved hentning af detaljer:", err));
+        .catch(err => console.error("Error fetching details:", err));
 
     modal.classList.remove("hidden");
 
@@ -141,16 +141,16 @@ function openBookDetail(book) {
     const addBtn = document.getElementById("add-reading-list");
     if (addBtn) {
         if (readingList.some(b => b.key === book.key)) {
-            addBtn.textContent = "Fjern fra læseliste";
+            addBtn.textContent = "Remove from reading list";
             addBtn.onclick = () => {
                 removeFromReadingList(book);
-                addBtn.textContent = "Tilføj til læseliste";
+                addBtn.textContent = "Add to reading list";
             };
         } else {
-            addBtn.textContent = "Tilføj til læseliste";
+            addBtn.textContent = "Add to reading list";
             addBtn.onclick = () => {
                 addToReadingList(book);
-                addBtn.textContent = "Fjern fra læseliste";
+                addBtn.textContent = "Remove from reading list";
             };
         }
     }
@@ -159,16 +159,16 @@ function openBookDetail(book) {
     const markBtn = document.getElementById("mark-as-read");
     if (markBtn) {
         if (readBooks.some(b => b.key === book.key)) {
-            markBtn.textContent = "Fjern fra dine bøger";
+            markBtn.textContent = "Remove from your books";
             markBtn.onclick = () => {
                 removeFromMyBooks(book);
-                markBtn.textContent = "Markér som læst";
+                markBtn.textContent = "Mark book as read";
             };
         } else {
-            markBtn.textContent = "Markér som læst";
+            markBtn.textContent = "Mark book as read";
             markBtn.onclick = () => {
                 markAsRead(book);
-                markBtn.textContent = "Fjern fra dine bøger";
+                markBtn.textContent = "Remove from your books";
             };
         }
     }
@@ -235,7 +235,7 @@ function renderReadingList() {
     container.innerHTML = "";
 
     if (readingList.length === 0) {
-        container.innerHTML = "<p>Din læseliste er tom.</p>";
+        container.innerHTML = "<p>Your reading list is empty.</p>";
         return;
     }
 
@@ -243,8 +243,8 @@ function renderReadingList() {
         const div = document.createElement("div");
         div.classList.add("book");
 
-        const title = book.title || "Ukendt titel";
-        const author = book.author_name ? book.author_name[0] : "Ukendt forfatter";
+        const title = book.title || "Unknown title";
+        const author = book.author_name ? book.author_name[0] : "Unknown author";
 
         let coverUrl = "https://via.placeholder.com/150x220?text=No+Cover";
         if (book.cover_i) {
@@ -253,8 +253,6 @@ function renderReadingList() {
 
         div.innerHTML = `
             <img src="${coverUrl}" alt="${title}">
-            <h3>${title}</h3>
-            <p>${author}</p>
         `;
 
         div.addEventListener("click", () => openBookDetail(book));
@@ -270,7 +268,7 @@ function renderReadBooks() {
     container.innerHTML = "";
 
     if (readBooks.length === 0) {
-        container.innerHTML = "<p>Du har ikke markeret nogen bøger som læst endnu.</p>";
+        container.innerHTML = "<p>You have not marked any books as read yet.</p>";
         return;
     }
 
@@ -278,8 +276,8 @@ function renderReadBooks() {
         const div = document.createElement("div");
         div.classList.add("book");
 
-        const title = book.title || "Ukendt titel";
-        const author = book.author_name ? book.author_name[0] : "Ukendt forfatter";
+        const title = book.title || "Unknown title";
+        const author = book.author_name ? book.author_name[0] : "Unknown author";
 
         let coverUrl = "https://via.placeholder.com/150x220?text=No+Cover";
         if (book.cover_i) {
@@ -288,8 +286,6 @@ function renderReadBooks() {
 
         div.innerHTML = `
             <img src="${coverUrl}" alt="${title}">
-            <h3>${title}</h3>
-            <p>${author}</p>
         `;
 
         // Gør det muligt at åbne popup med mere info
