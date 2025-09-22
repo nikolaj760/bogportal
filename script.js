@@ -314,7 +314,13 @@ if (document.getElementById("reading-list-kat")) {
 
 // Load kategorier kun på index.html
 if (document.getElementById("popular")) {
-    loadKategori("popular", "popular");
-    loadKategori("crime", "krimi");
-    loadKategori("romance", "romantik");
+    loadKategori("award", "popular");
+    loadKategori("scifi", "sci-fi");
+    loadKategori("thriller", "thriller");
+    loadKategori("horror", "horror");
+    loadKategori("fantasy", "fantasy");
+    loadKategori("Harry-Potter", "kids");
+    loadKategori("nonfiction", "nonfic");
+
+
 }
